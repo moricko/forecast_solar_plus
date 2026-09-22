@@ -1,0 +1,149 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Forecast.Solar Plus",
+        "description": "Poloha fotovoltiky. API kľúč je voliteľný – bez neho sa použije verejný plán (12 volaní/h, hodinové rozlíšenie, 2 dni).",
+        "data": {
+          "name": "Názov",
+          "latitude": "Zemepisná šírka",
+          "longitude": "Zemepisná dĺžka",
+          "api_key": "API kľúč (voliteľný)"
+        }
+      },
+      "plane": {
+        "title": "Plocha fotovoltiky",
+        "description": "Zatiaľ nastavené plochy: {count}. Azimut: -90 = východ, 0 = juh, 90 = západ. Zapni „Pridať ďalšiu plochu“ pre zadanie ďalšej orientácie.",
+        "data": {
+          "name": "Názov plochy",
+          "declination": "Sklon",
+          "azimuth": "Azimut",
+          "kwp": "Inštalovaný výkon",
+          "add_another": "Pridať ďalšiu plochu"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Nový API kľúč",
+        "description": "Forecast.Solar odmietol API kľúč. Zadaj nový alebo nechaj prázdne pre verejný plán.",
+        "data": {
+          "api_key": "API kľúč"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Názov plochy je povinný.",
+      "name_exists": "Plocha s týmto názvom už existuje.",
+      "invalid_auth": "Forecast.Solar odmietol API kľúč.",
+      "rate_limited": "Vyčerpaný limit volaní Forecast.Solar – skús o pár minút.",
+      "cannot_connect": "Nepodarilo sa spojiť s Forecast.Solar."
+    },
+    "abort": {
+      "reauth_successful": "API kľúč bol aktualizovaný."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Forecast.Solar Plus",
+        "menu_options": {
+          "settings": "Nastavenia (interval, tlmenie, striedač)",
+          "add_plane": "Pridať plochu",
+          "remove_plane": "Odstrániť plochu"
+        }
+      },
+      "settings": {
+        "title": "Nastavenia",
+        "description": "Najkratší bezpečný interval pre aktuálny počet plôch a plán: {minimum} min. Limit striedača 0 = bez obmedzenia.",
+        "data": {
+          "update_interval": "Interval aktualizácie",
+          "damping_morning": "Tlmenie ráno",
+          "damping_evening": "Tlmenie večer",
+          "inverter_kw": "Limit striedača",
+          "resolution": "Rozlíšenie (len plány s API kľúčom)"
+        }
+      },
+      "add_plane": {
+        "title": "Pridať plochu",
+        "description": "Azimut: -90 = východ, 0 = juh, 90 = západ.",
+        "data": {
+          "name": "Názov plochy",
+          "declination": "Sklon",
+          "azimuth": "Azimut",
+          "kwp": "Inštalovaný výkon"
+        }
+      },
+      "remove_plane": {
+        "title": "Odstrániť plochu",
+        "data": {
+          "remove": "Plochy na odstránenie"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Názov plochy je povinný.",
+      "name_exists": "Plocha s týmto názvom už existuje.",
+      "interval_too_short": "Interval je kratší než bezpečné minimum pre limit API.",
+      "nothing_selected": "Vyber aspoň jednu plochu.",
+      "last_plane": "Musí ostať aspoň jedna plocha."
+    }
+  },
+  "selector": {
+    "resolution": {
+      "options": {
+        "": "Podľa účtu",
+        "15": "15 minút",
+        "30": "30 minút",
+        "60": "60 minút"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "forecast_today": { "name": "Predpoveď dnes" },
+      "forecast_tomorrow": { "name": "Predpoveď zajtra" },
+      "forecast_day_3": { "name": "Predpoveď deň 3" },
+      "forecast_day_4": { "name": "Predpoveď deň 4" },
+      "forecast_remaining_today": { "name": "Zostávajúca výroba dnes" },
+      "forecast_this_hour": { "name": "Predpoveď táto hodina" },
+      "forecast_next_hour": { "name": "Predpoveď ďalšia hodina" },
+      "power_now": { "name": "Výkon teraz" },
+      "power_now_30m": { "name": "Výkon o 30 minút" },
+      "power_now_1h": { "name": "Výkon o 1 hodinu" },
+      "peak_forecast_today": { "name": "Špička dnes" },
+      "peak_time_today": { "name": "Čas špičky dnes" },
+      "peak_forecast_tomorrow": { "name": "Špička zajtra" },
+      "peak_time_tomorrow": { "name": "Čas špičky zajtra" },
+      "api_last_polled": { "name": "Posledné volanie API" },
+      "api_limit": { "name": "Limit API" },
+      "api_used": { "name": "Využité volania API" },
+      "api_remaining": { "name": "Zostávajúce volania API" }
+    }
+  },
+  "services": {
+    "query_forecast_data": {
+      "name": "Dopyt na predpoveď",
+      "description": "Vráti 30-minútové periódy predpovede (priemer v kW) medzi dvoma časmi, ako Solcast.",
+      "fields": {
+        "start_date_time": { "name": "Začiatok", "description": "Začiatok rozsahu." },
+        "end_date_time": { "name": "Koniec", "description": "Koniec rozsahu." },
+        "plane": { "name": "Plocha", "description": "Názov plochy; prázdne = súčet všetkých plôch." },
+        "config_entry_id": { "name": "Záznam integrácie", "description": "Potrebné len pri viacerých záznamoch." }
+      }
+    },
+    "force_update_forecasts": {
+      "name": "Vynútiť aktualizáciu",
+      "description": "Okamžite zavolá API Forecast.Solar bez ohľadu na medzipamäť.",
+      "fields": {
+        "config_entry_id": { "name": "Záznam integrácie", "description": "Prázdne = všetky záznamy." }
+      }
+    }
+  },
+  "exceptions": {
+    "entry_not_found": { "message": "Záznam {entry_id} sa nenašiel." },
+    "no_entries": { "message": "Nie je načítaný žiadny záznam Forecast.Solar Plus." },
+    "entry_ambiguous": { "message": "Je načítaných viac záznamov – zadaj config_entry_id." },
+    "invalid_range": { "message": "Koniec musí byť po začiatku." },
+    "plane_not_found": { "message": "Plocha „{plane}“ sa nenašla." },
+    "no_data": { "message": "Zatiaľ nie sú dostupné údaje predpovede." }
+  }
+}

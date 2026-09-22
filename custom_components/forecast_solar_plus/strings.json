@@ -1,0 +1,149 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Forecast.Solar Plus",
+        "description": "Location of the PV system. An API key is optional – without it the public plan is used (12 calls/hour, hourly resolution, 2 days).",
+        "data": {
+          "name": "Name",
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "api_key": "API key (optional)"
+        }
+      },
+      "plane": {
+        "title": "PV plane",
+        "description": "Planes configured so far: {count}. Azimuth: -90 = east, 0 = south, 90 = west. Enable “Add another plane” to enter the next orientation.",
+        "data": {
+          "name": "Plane name",
+          "declination": "Declination (tilt)",
+          "azimuth": "Azimuth",
+          "kwp": "Installed power",
+          "add_another": "Add another plane"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-enter API key",
+        "description": "Forecast.Solar rejected the API key. Enter a new one or leave empty for the public plan.",
+        "data": {
+          "api_key": "API key"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Plane name is required.",
+      "name_exists": "A plane with this name already exists.",
+      "invalid_auth": "Forecast.Solar rejected the API key.",
+      "rate_limited": "Forecast.Solar rate limit reached – try again in a few minutes.",
+      "cannot_connect": "Could not connect to Forecast.Solar."
+    },
+    "abort": {
+      "reauth_successful": "API key updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Forecast.Solar Plus",
+        "menu_options": {
+          "settings": "Settings (update interval, damping, inverter)",
+          "add_plane": "Add a plane",
+          "remove_plane": "Remove a plane"
+        }
+      },
+      "settings": {
+        "title": "Settings",
+        "description": "Minimum safe update interval for the current number of planes and plan: {minimum} min. Inverter limit 0 = no limit.",
+        "data": {
+          "update_interval": "Update interval",
+          "damping_morning": "Morning damping",
+          "damping_evening": "Evening damping",
+          "inverter_kw": "Inverter limit",
+          "resolution": "Resolution (API key plans only)"
+        }
+      },
+      "add_plane": {
+        "title": "Add a plane",
+        "description": "Azimuth: -90 = east, 0 = south, 90 = west.",
+        "data": {
+          "name": "Plane name",
+          "declination": "Declination (tilt)",
+          "azimuth": "Azimuth",
+          "kwp": "Installed power"
+        }
+      },
+      "remove_plane": {
+        "title": "Remove a plane",
+        "data": {
+          "remove": "Planes to remove"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Plane name is required.",
+      "name_exists": "A plane with this name already exists.",
+      "interval_too_short": "Interval is shorter than the safe minimum for the API rate limit.",
+      "nothing_selected": "Select at least one plane.",
+      "last_plane": "At least one plane must remain."
+    }
+  },
+  "selector": {
+    "resolution": {
+      "options": {
+        "": "Account default",
+        "15": "15 minutes",
+        "30": "30 minutes",
+        "60": "60 minutes"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "forecast_today": { "name": "Forecast today" },
+      "forecast_tomorrow": { "name": "Forecast tomorrow" },
+      "forecast_day_3": { "name": "Forecast day 3" },
+      "forecast_day_4": { "name": "Forecast day 4" },
+      "forecast_remaining_today": { "name": "Forecast remaining today" },
+      "forecast_this_hour": { "name": "Forecast this hour" },
+      "forecast_next_hour": { "name": "Forecast next hour" },
+      "power_now": { "name": "Power now" },
+      "power_now_30m": { "name": "Power in 30 minutes" },
+      "power_now_1h": { "name": "Power in 1 hour" },
+      "peak_forecast_today": { "name": "Peak forecast today" },
+      "peak_time_today": { "name": "Peak time today" },
+      "peak_forecast_tomorrow": { "name": "Peak forecast tomorrow" },
+      "peak_time_tomorrow": { "name": "Peak time tomorrow" },
+      "api_last_polled": { "name": "API last polled" },
+      "api_limit": { "name": "API limit" },
+      "api_used": { "name": "API used" },
+      "api_remaining": { "name": "API remaining" }
+    }
+  },
+  "services": {
+    "query_forecast_data": {
+      "name": "Query forecast data",
+      "description": "Returns 30-minute forecast periods (kW average) between two times, like Solcast.",
+      "fields": {
+        "start_date_time": { "name": "Start", "description": "Start of the range." },
+        "end_date_time": { "name": "End", "description": "End of the range." },
+        "plane": { "name": "Plane", "description": "Plane name; empty = all planes combined." },
+        "config_entry_id": { "name": "Config entry", "description": "Required only when more than one entry is configured." }
+      }
+    },
+    "force_update_forecasts": {
+      "name": "Force update forecasts",
+      "description": "Calls the Forecast.Solar API immediately, ignoring the cache.",
+      "fields": {
+        "config_entry_id": { "name": "Config entry", "description": "Empty = all entries." }
+      }
+    }
+  },
+  "exceptions": {
+    "entry_not_found": { "message": "Config entry {entry_id} was not found." },
+    "no_entries": { "message": "No Forecast.Solar Plus entry is loaded." },
+    "entry_ambiguous": { "message": "More than one entry is loaded – specify config_entry_id." },
+    "invalid_range": { "message": "End must be after start." },
+    "plane_not_found": { "message": "Plane “{plane}” was not found." },
+    "no_data": { "message": "No forecast data available yet." }
+  }
+}

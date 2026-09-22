@@ -1,0 +1,31 @@
+# Služby integrácie Forecast.Solar Plus (názvy zodpovedajú Solcast PV Forecast).
+query_forecast_data:
+  fields:
+    start_date_time:
+      required: true
+      example: "2026-09-21 06:00:00"
+      selector:
+        datetime:
+    end_date_time:
+      required: true
+      example: "2026-09-22 06:00:00"
+      selector:
+        datetime:
+    plane:
+      required: false
+      example: "Východ"
+      selector:
+        text:
+    config_entry_id:
+      required: false
+      selector:
+        config_entry:
+          integration: forecast_solar_plus
+
+force_update_forecasts:
+  fields:
+    config_entry_id:
+      required: false
+      selector:
+        config_entry:
+          integration: forecast_solar_plus

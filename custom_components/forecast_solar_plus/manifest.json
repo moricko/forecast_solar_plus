@@ -1,0 +1,13 @@
+{
+  "domain": "forecast_solar_plus",
+  "name": "Forecast.Solar Plus",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/OWNER/forecast_solar_plus",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/OWNER/forecast_solar_plus/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}
