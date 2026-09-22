@@ -1,0 +1,11 @@
+{
+  "domain": "forecast_solar_plus",
+  "name": "Forecast.Solar Plus",
+  "version": "0.1.0",
+  "documentation": "https://github.com/moricko/forecast_solar_plus",
+  "issue_tracker": "https://github.com/moricko/forecast_solar_plus/issues",
+  "codeowners": ["@moricko"],
+  "config_flow": true,
+  "iot_class": "cloud_polling",
+  "requirements": []
+}
